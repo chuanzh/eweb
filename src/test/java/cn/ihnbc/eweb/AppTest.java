@@ -1,4 +1,4 @@
-package cn.chuanz.eweb;
+package cn.ihnbc.eweb;
 
 public class AppTest {
 
