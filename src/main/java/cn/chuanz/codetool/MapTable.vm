@@ -1,0 +1,40 @@
+package ${package};
+
+import cn.chuanz.orm.MapTable;
+import cn.chuanz.orm.fieldannotation.FieldAuto;
+import cn.chuanz.orm.fieldannotation.FieldChar;
+import cn.chuanz.orm.fieldannotation.FieldClob;
+import cn.chuanz.orm.fieldannotation.FieldDate;
+import cn.chuanz.orm.fieldannotation.FieldKey;
+import cn.chuanz.orm.fieldannotation.FieldNumber;
+import cn.chuanz.orm.fieldannotation.FieldString;
+import cn.chuanz.orm.fieldannotation.FieldBigNumber;
+ 
+public class ${table.tableNameUp} extends MapTable{
+	public static final String TABLE_NAME = "${table.tableName}"; 
+	
+#foreach($field in ${table.fields})
+	/**
+	 * ${field.fieldComment}
+	 */
+#if($field.IfKey)
+	@FieldKey
+#end
+#if($field.FieldAutoIncreace)
+	@FieldAuto
+#end
+	${field.FieldAnnot}
+	public static final String f_${field.fieldName} = "${field.fieldName}";
+	
+#end
+	 
+	private ${table.tableNameUp}(){}
+	private static ${table.tableNameUp} instanceObj = null;
+	public static ${table.tableNameUp} instance(){
+		if(instanceObj == null){
+			instanceObj = new ${table.tableNameUp}();
+		}
+		return instanceObj;
+	}
+}
+ 
