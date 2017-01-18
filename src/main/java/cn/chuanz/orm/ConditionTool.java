@@ -48,9 +48,9 @@ public class ConditionTool {
 	}
 	
 	/**
-	 * @param columnName
-	 * @param value
-	 * @param conditionOperator
+	 * @param columnName 列名
+	 * @param value 值
+	 * @param conditionOperator 操作符
 	 */
 	public void addCondition(String columnName, Object value,
 			ConditionOperator conditionOperator) {
@@ -73,8 +73,8 @@ public class ConditionTool {
 		}
 	}
 	/**
-	 * @param columnName
-	 * @param value
+	 * @param columnName 列名
+	 * @param value 值
 	 */
 	public void addCondition(String columnName, String value) {
 		this.addCondition(columnName, value, ConditionOperator.EQ);
@@ -101,7 +101,6 @@ public class ConditionTool {
 		this.queryLimit(0,0);
 	}
 	
-	/** @param columnName */
 	public void removeCondition(String columnName) {
 		if (getListCondition() != null) {
 			Iterator<AndCondition> it = getListCondition().iterator();
@@ -128,8 +127,8 @@ public class ConditionTool {
 	}
 	
 	/**
-	 * @param startIndex
-	 * @param length
+	 * @param startIndex 起始位置
+	 * @param length 长度
 	 */
 	public void queryLimit(int startIndex, int length) {
 		this.startIndex = startIndex;

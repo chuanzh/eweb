@@ -15,11 +15,6 @@ public abstract class MapTable {
 	private String keyColumns = null;
 	private HashMap<String,Boolean> dataColumns = new HashMap<String,Boolean>(); 
 	private String autoColumn = null;
-	/**
-	 * 返回查询时需要查询的列，每个列之间用逗号隔开
-	 * 过滤掉@FieldNoSelect
-	 * @return
-	 */
 	
 	public MapTable(){
 		Field[] fs = this.getClass().getFields();
@@ -67,7 +62,7 @@ public abstract class MapTable {
 
 	/**
 	 * 返回该表表名
-	 * @return
+	 * @return tableName
 	 */
 	public String getTableName() {
 		if(tableName == null){
@@ -88,7 +83,7 @@ public abstract class MapTable {
 
 	/**
 	 * 返回该表主键列，多个主键用,号隔开
-	 * @return
+	 * @return keyColumns
 	 */
 	public String getKeyColumns() {
 		if(keyColumns == null){

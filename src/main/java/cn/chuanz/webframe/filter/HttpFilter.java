@@ -136,11 +136,10 @@ public abstract class HttpFilter implements Filter {
 	
 	/**
 	 * 初始化对象参数
-	 * @param controlObject
-	 * @param inputRequest
-	 * @param request
-	 * @param response
-	 * @throws Exception
+	 * @param controlObject 对象
+	 * @param request 请求对象
+	 * @param response 响应对象
+	 * @throws Exception 异常
 	 */
 	public void beforeDoControl(Object controlObject, HttpServletRequest request,HttpServletResponse response)  throws Exception {
 		//初始化对象注入
@@ -179,8 +178,8 @@ public abstract class HttpFilter implements Filter {
 	
 	/**
 	 * 释放资源
-	 * @param o
-	 * @throws Exception
+	 * @param o 数据库连接
+	 * @throws Exception 异常
 	 */
 	public void releaseResource(Object o)  throws Exception {
 		if(o != null){

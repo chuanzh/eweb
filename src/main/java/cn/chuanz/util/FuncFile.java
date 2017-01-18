@@ -56,9 +56,9 @@ public class FuncFile {
 	/**
 	 * 插入文件，如果文件已存在，覆盖原有的。默认UTF-8
 	 * 
-	 * @param path
-	 * @param text
-	 * @throws IOException
+	 * @param path 文件路径
+	 * @param text 内容
+	 * @throws IOException 异常
 	 */
 	public static void insertFile(String path, String text) throws IOException {
 		insertFile(path, text, "UTF-8");
@@ -83,8 +83,10 @@ public class FuncFile {
 
 	/**
 	 * 向文件夹中添加文件.并写入类容。如果文件已经存在，则替换原有文件
-	 * 
-	 * @throws IOException
+	 * @param dirPath 文件夹路径
+	 * @param fileName 文件名
+	 * @param data 字节流
+	 * @throws IOException 异常
 	 */
 	public static void insertFile(String dirPath, String fileName, byte[] data)
 			throws IOException {
@@ -157,8 +159,10 @@ public class FuncFile {
 
 	/**
 	 * 向文件夹中添加文件.并写入类容。如果文件已经存在，则替换原有文件
-	 * 
-	 * @throws Exception
+	 * @param dirPath 文件夹路径
+	 * @param fileName 文件名
+	 * @param is 文件流
+	 * @throws Exception 异常
 	 */
 	public static void insertFile(String dirPath, String fileName,
 			InputStream is) throws Exception {
@@ -205,9 +209,8 @@ public class FuncFile {
 	/**
 	 * 删除文件
 	 * 
-	 * @param path
-	 * @return
-	 * @throws IOException
+	 * @param path 路径
+	 * @throws IOException 异常
 	 */
 	public static void delFile(String path) throws IOException {
 		try {
@@ -232,9 +235,8 @@ public class FuncFile {
 
 	/**
 	 * 删除目录
-	 * 
-	 * @param path
-	 * @return
+	 * @param path 路径
+	 * @throws IOException 异常
 	 */
 	public static void delDir(String path) throws IOException {
 		File file = new File(path);
@@ -283,9 +285,9 @@ public class FuncFile {
 	/**
 	 * 复制文件
 	 * 
-	 * @param sourceFile
-	 * @param targetFile
-	 * @throws IOException
+	 * @param sourceFile 源路径
+	 * @param targetFile 新路径
+	 * @throws IOException 异常
 	 */
 	public static void copyFile(String sourceFile, String targetFile)
 			throws IOException {
@@ -300,8 +302,9 @@ public class FuncFile {
 	/**
 	 * 复制文件
 	 * 
-	 * @param sourceFile
-	 * @param targetFile
+	 * @param srcFile 源路径
+	 * @param destFile 新路径
+	 * @throws IOException 异常
 	 */
 	public static void copyFile(File srcFile, File destFile) throws IOException {
 		copyFile(srcFile, destFile, true);
@@ -372,8 +375,8 @@ public class FuncFile {
 	/**
 	 * 复制文件夹
 	 * 
-	 * @param sourceDir
-	 * @param targetDir
+	 * @param sourceDir 源路径
+	 * @param targetDir 新路径
 	 */
 	public static void copyDirectiory(String sourceDir, String targetDir) {
 		File src = new File(sourceDir);
@@ -450,12 +453,10 @@ public class FuncFile {
 
 	/**
 	 * 查找目录名中所有文件(包括子目录)
-	 * 
-	 * @param path
-	 *            目录名
-	 * @param regx
-	 *            文件名匹配的表达式(注，不需要匹配文件路径)
-	 * @throws Exception
+	 * @param path 目录名
+	 * @param regx 文件名匹配的表达式(注，不需要匹配文件路径)
+	 * @return 文件集合
+	 * @throws Exception 异常
 	 */
 	public static List<String> searchFile(String path, String regx)
 			throws Exception {
@@ -528,11 +529,9 @@ public class FuncFile {
 
 	/**
 	 * 读取文件内容(默认UTF-8)
-	 * 
-	 * @param file
-	 *            文件路径
-	 * @return
-	 * @throws IOException
+	 * @param filePath 文件路径
+	 * @return 内容
+	 * @throws Exception 异常
 	 */
 	public static String readText(String filePath) throws Exception {
 		return readText(filePath, "UTF-8");
@@ -577,13 +576,11 @@ public class FuncFile {
 
 	/**
 	 * 读取文件内容
-	 * 
-	 * @param file
-	 *            文件路径
-	 * @return
-	 * @throws Exception
+	 * @param filePath 文件路径
+	 * @param encode 编码
+	 * @return 内容
+	 * @throws Exception 异常
 	 */
-
 	public static String readText(String filePath, String encode)
 			throws Exception {
 		File file = new File(filePath);
@@ -699,9 +696,8 @@ public class FuncFile {
 	/**
 	 * 获取某个包路径下的类集合(包括子目录)
 	 * 
-	 * @param path
-	 * @return
-	 * @throws IOException
+	 * @param path 路径
+	 * @return 类集合
 	 */
 	public static Set<Class<?>> getClasses(String path)   {
 

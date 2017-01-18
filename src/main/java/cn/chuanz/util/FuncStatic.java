@@ -92,9 +92,9 @@ public class FuncStatic {
 	}
 	/**
 	 * 匹配字符串中的占位符 如:{0},{1}
-	 * @param content
-	 * @param arguments
-	 * @return
+	 * @param content 字符串
+	 * @param arguments 占位符
+	 * @return 结果
 	 */
 	public static String format(String content, Object... arguments) {
 		if (content == null)
@@ -198,8 +198,8 @@ public class FuncStatic {
 	/**
 	 * 检查String 是NULL, 或者“”
 	 * 
-	 * @param var
-	 * @return
+	 * @param var 字符串
+	 * @return 是否为空
 	 */
 	public static boolean checkStringIsEmpty(String var) {
 		if (var == null)
@@ -228,8 +228,8 @@ public class FuncStatic {
 	/**
 	 * 检查List 是NULL, 或者“”
 	 * 
-	 * @param var
-	 * @return
+	 * @param var list集合
+	 * @return 是否为空
 	 */
 	public static boolean checkListIsEmpty(List var) {
 		if (var == null)
@@ -239,8 +239,8 @@ public class FuncStatic {
 
 	/**
 	 * 将HTML中input的值进行转义 
-	 * @param str
-	 * @return
+	 * @param str 输入字符串
+	 * @return 结果
 	 */
 	public static String textToInputHtml(String str) {
 		if (str == null)
@@ -272,8 +272,8 @@ public class FuncStatic {
 
 	/**
 	 * 将text进行HTML转义
-	 * @param str
-	 * @return
+	 * @param str 输入字符串
+	 * @return 结果
 	 */
 	public static String textToHtml(String str) {
 		if (str == null)
@@ -321,12 +321,9 @@ public class FuncStatic {
 
 	/**
 	 * 去掉一个字符串两端的某个字符串
-	 * 
-	 * @param str
-	 *            原字符串
-	 * @param c
-	 *            需要去掉的字符串
-	 * @return
+	 * @param str 原字符串
+	 * @param c 需要去掉的字符串
+	 * @return 结果
 	 */
 	public static String trim(String str, String c) {
 		while (str.startsWith(c))
@@ -336,16 +333,13 @@ public class FuncStatic {
 		return str;
 	}
 
+	
 	/**
 	 * 去掉一个字符串两端的两个字符串
-	 * 
-	 * @param str
-	 *            原字符串
-	 * @param start
-	 *            开头需要去掉的字符串
-	 * @param end
-	 *            结尾需要去掉的字符串
-	 * @return
+	 * @param str 原字符串
+	 * @param start 开头需要去掉的字符串
+	 * @param end 结尾需要去掉的字符串
+	 * @return 结果
 	 */
 	public static String trim(String str, String start, String end) {
 		if (str == null)
@@ -370,13 +364,10 @@ public class FuncStatic {
 
 	 
 	/**
-	 * 截取一段字符的长度,中文两个字符，英文1个字符,如果数字不正好，则少取一个字符位
-	 * 
-	 * @author patriotlml
-	 * @param String
-	 *            origin, 原始字符串
-	 * @param int len, 截取长度(一个汉字长度按2算的)
-	 * @return String, 返回的字符串
+	 * 截取字符串
+	 * @param origin 原始字符串
+	 * @param len 截取长度(一个汉字长度按2算的)
+	 * @return 结果
 	 */
 	public static String substring(String origin, int len) {
 		if (origin == null || "".equals(origin))
@@ -418,9 +409,8 @@ public class FuncStatic {
 	/**
 	 * 计算字符串长度。每个中文占两个长度单位
 	 * 
-	 * @param s
-	 * @param length
-	 * @return
+	 * @param o 对象
+	 * @return 长度
 	 */
 	public static int computeStringLength(Object o) {
 		int i = 0;
@@ -441,9 +431,9 @@ public class FuncStatic {
 	/**
 	 * 返回指定长度的字符串。字符串长度不够时用空格补齐。每个中文占两个长度单位
 	 * 
-	 * @param s
-	 * @param length
-	 * @return
+	 * @param s 字符串
+	 * @param length 长度
+	 * @return 结果
 	 */
 	public static String formatStringLength(Object s, int length) {
 		int count = FuncStatic.computeStringLength(s);
@@ -457,6 +447,11 @@ public class FuncStatic {
 
 	/**
 	 * 返回指定长度的字符串。字符串长度不够时用指定字符串补齐。每个中文占两个长度单位
+	 * @param s 字符串
+	 * @param length 长度
+	 * @param s1 填补的字符串
+	 * @param left 左右标识
+	 * @return 结果
 	 */
 	public static String formatStringLength(Object s, int length, String s1,
 			boolean left) {
@@ -473,10 +468,10 @@ public class FuncStatic {
 	}
 
 	/**
-	 * 将大写字符串转换为驼峰形式，下划线后面和第一个字母是大写 USER_NAME --> UserName
+	 * 将大写字符串转换为驼峰形式，下划线后面和第一个字母是大写(USER_NAME 转换 UserName)
 	 * 
-	 * @param s
-	 * @return
+	 * @param s 要转的字符串
+	 * @return 结果
 	 */
 	public static String convertUpperCaseToHump(String s) {
 		if (FuncStatic.checkIsEmpty(s))
@@ -499,10 +494,10 @@ public class FuncStatic {
 	}
 
 	/**
-	 * 将驼峰形式转换为大写字符串，大写字母前面是下划线后面,第一个字母除外 UserName --> USER_NAME
+	 * 将驼峰形式转换为大写字符串，大写字母前面是下划线后面,第一个字母除外 UserName 转换 USER_NAME
 	 * 
-	 * @param s
-	 * @return
+	 * @param s 要转的字符串
+	 * @return 结果
 	 */
 	public static String convertHumpToUpperCase(String s) {
 		if (FuncStatic.checkIsEmpty(s))
@@ -520,10 +515,12 @@ public class FuncStatic {
 		}
 		return sb.toString();
 	}  
+	
 	/**
 	 * 将字符串的首字母进行大小写转换
-	 * 
-	 * @return
+	 * @param str 转换字符串
+	 * @param upper 标识
+	 * @return 结果
 	 */
 	public static String convertWordHead(String str, boolean upper) {
 		if (FuncStatic.checkIsEmpty(str))
@@ -537,9 +534,9 @@ public class FuncStatic {
 	/**
 	 * 正则表达式搜索字符串
 	 * 
-	 * @param str
-	 * @param reg
-	 * @return
+	 * @param str 搜索字符串
+	 * @param reg 正则
+	 * @return 结果
 	 */
 	public static String searchString(String str, String reg) {
 		Pattern p = Pattern.compile(reg);
@@ -552,12 +549,10 @@ public class FuncStatic {
 
 	/**
 	 * 正则表达式搜索字符串
-	 * 
-	 * @param str
-	 * @param reg
-	 * @param count
-	 *            : 设定正则表达式分组
-	 * @return
+	 * @param str 搜索字符串
+	 * @param reg 正则
+	 * @param count 搜索个数
+	 * @return 结果
 	 */
 	public static List<String> searchString(String str, String reg, int count) {
 		List<String> list = new ArrayList<String>();
@@ -610,12 +605,10 @@ public class FuncStatic {
 
 	/**
 	 * 求百分比
-	 * 
-	 * @param p1
-	 * @param p2
-	 * @param digits
-	 *            小数点后面位数
-	 * @return
+	 * @param p1 分子
+	 * @param p2 分母
+	 * @param digits 小数点后面位数
+	 * @return 结果
 	 */
 	public static String percent(double p1, double p2, int digits) {
 		
@@ -638,8 +631,8 @@ public class FuncStatic {
 	
 	/**
 	 * 去掉所有HTML标签元素
-	 * @param input
-	 * @return
+	 * @param input 字符串
+	 * @return 结果
 	 */
 	public static String splitAndFilterTag(String input) {  
         if (input == null || input.trim().equals("")) {  
@@ -687,26 +680,11 @@ public class FuncStatic {
 	}
 	 
 	/**
-	 * 待完善
-	 * @param taskName
+	 * 运行shell 
+	 * @param taskName 需要执行的shell
+	 * @return list集合
+	 * @throws Exception 异常
 	 */
-	public static void killLinuxTask(String taskName){
-		try {
-			List<String> list = runLinuxTask("ps -ef |grep "+taskName);
-			
-		} catch (Exception e) {
-			logger.error(FuncStatic.errorTrace(e));
-		}
-	}
-	
-	/** 
-     * 运行shell 
-     *  
-     * @param shStr 
-     *            需要执行的shell 
-     * @return 
-     * @throws IOException 
-     */  
     public static List<String> runLinuxTask(String taskName) throws Exception {  
         List<String> strList = new ArrayList<String>();  
         Process process;  
@@ -722,8 +700,8 @@ public class FuncStatic {
     }
     /**
 	 *  MD5加密函数
-	 * @param sourceString
-	 * @return
+	 * @param sourceString 字符串
+	 * @return 加密值
 	 */
 	public static String md5Encode(String sourceString) {
 		String resultString = null;
@@ -748,7 +726,8 @@ public class FuncStatic {
 	 
 	/**
 	 * 获取某个类及其父类的Field
-	 * @return
+	 * @param clazz 类
+	 * @return 所有字段
 	 */
 	public static ArrayList<Field> findClassAllField (Class clazz){
 		ArrayList<Field> list = new ArrayList<Field>();
@@ -772,9 +751,9 @@ public class FuncStatic {
 		return list;
 	}
 	/**
-	 * ht 包装json工具类
-	 * @param args
-	 * @return
+	 * 包装json工具类
+	 * @param args key,value形式
+	 * @return JSONObject
 	 */
 	public static JSONObject createJson(String... args) {
 		JSONObject jo = new JSONObject();

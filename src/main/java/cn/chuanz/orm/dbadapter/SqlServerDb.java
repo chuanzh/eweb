@@ -132,8 +132,8 @@ public abstract class SqlServerDb implements DbConnectTool {
 	
 	/**
 	 * 返回某个表的所有字段,字段类型，字段注释， 是否自增长,
-	 * @param table
-	 * @return
+	 * @param table 表名
+	 * @return 表的所有字段
 	 */
 	public List<HashMap<String, String>> allFields(String table){
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -183,8 +183,8 @@ public abstract class SqlServerDb implements DbConnectTool {
 	 
 	/**
 	 * 多个主键用逗号隔开
-	 * @param table
-	 * @return
+	 * @param table 表名
+	 * @return 表的所有主键
 	 */
 	public String getKeyFieldName(String table)
 	{ 

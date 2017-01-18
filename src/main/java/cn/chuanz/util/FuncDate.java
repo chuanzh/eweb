@@ -15,8 +15,8 @@ public class FuncDate {
 	/**
 	 * 获取季度
 	 * 
-	 * @param date
-	 * @return
+	 * @param date 时间
+	 * @return 季度
 	 */
 	public static int getQuarter(Date date) {
 
@@ -127,9 +127,8 @@ public class FuncDate {
 
 	/**
 	 * yyyy-MM-dd
-	 * 
-	 * @param date
-	 * @return
+	 * @param date 日期
+	 * @return 字符串（yyyy-MM-dd）
 	 */
 	public static String dateToDayStr(Date date) {
 		if (date == null)
@@ -141,9 +140,8 @@ public class FuncDate {
 	}
 	
 	/**
-	 * 得到当前的日期
-	 * yyyy-MM-dd
-	 * @return
+	 * 得到当前的日期(yyyy-MM-dd)
+	 * @return 日期（yyyy-MM-dd）
 	 */
 	public static String getNowDate() {
 		Date date = new Date();
@@ -152,7 +150,7 @@ public class FuncDate {
 	
 	/**
 	 * 得到当前小时
-	 * @return
+	 * @return 小时
 	 */
 	public static String getNowHour() {
 		Date date = new Date();
@@ -164,7 +162,7 @@ public class FuncDate {
  
 	/**
 	 * 得到当前小时
-	 * @return
+	 * @return 小时
 	 */
 	public static int getNowHourInt() {
 		Date date = new Date();
@@ -175,7 +173,7 @@ public class FuncDate {
 	}
 	/**
 	 * 得到当前分钟
-	 * @return
+	 * @return 分钟
 	 */
 	public static int getNowMinuteInt() {
 		Date date = new Date();
@@ -186,8 +184,8 @@ public class FuncDate {
 	}
 	/**
 	 * 根据毫秒数得到对应的字符串时间
-	 * @param time
-	 * @return
+	 * @param time 时间戳
+	 * @return 日期
 	 */
 	public static String timeToTimeStr(Long time) {
 		Calendar c = Calendar.getInstance();
@@ -197,10 +195,10 @@ public class FuncDate {
 	
 	/**
 	 * 比较时间
-	 * @param timeStr1
-	 * @param timeStr2
-	 * @param operator
-	 * @return
+	 * @param timeStr1 时间1
+	 * @param timeStr2 时间2
+	 * @param operator 操作符
+	 * @return 比较结果
 	 */
 	public static boolean compare(String timeStr1, String timeStr2, String operator) {
 		if(timeStr1 == null) {
@@ -233,8 +231,7 @@ public class FuncDate {
 	
 	/**
 	 * 得到当前日期
-	 * yyyy-MM-dd HH:mm:ss
-	 * @return
+	 * @return 日期（yyyy-MM-dd HH:mm:ss）
 	 */
 	public static String getNowDateTime() {
 		Date date = new Date();
@@ -243,8 +240,8 @@ public class FuncDate {
 	
 	/**
 	 * 得到日期的毫秒数
-	 * @param dateStr
-	 * @return
+	 * @param dateStr 日期
+	 * @return 毫秒
 	 */
 	public static long getMillisecondByDateStr(String dateStr) {
 		Date date = formatToDate(dateStr);
@@ -254,8 +251,8 @@ public class FuncDate {
 	} 
 	/**
 	 * 得到日期的毫秒数
-	 * @param dateStr
-	 * @return
+	 * @param date 日期
+	 * @return 毫秒
 	 */
 	public static long getMillisecondByDate(Date date) {
 		Calendar c = Calendar.getInstance();
@@ -264,9 +261,9 @@ public class FuncDate {
 	} 
 	/**
 	 * 根据时间增减分钟
-	 * @param time
-	 * @param count
-	 * @return
+	 * @param time 日期
+	 * @param count 分钟数
+	 * @return 结果
 	 */
 	public static String addMinute(String time, int count) {
 		Date date = null;
@@ -282,9 +279,9 @@ public class FuncDate {
 	
 	/**
 	 * 根据时间增减秒钟
-	 * @param time
-	 * @param count
-	 * @return
+	 * @param time 时间
+	 * @param count 秒数
+	 * @return 结果
 	 */
 	public static String addSecondStr(String time, int count) {
 		Date date = null;
@@ -301,8 +298,8 @@ public class FuncDate {
 	
 	/**
 	 * 将字符串的日期格式化为yyyy-MM-dd格式的字符串日期
-	 * @param str
-	 * @return
+	 * @param str 字符串时间
+	 * @return 字符串时间（yyyy-MM-dd）
 	 */
 	public static String formatDataStrToStr(String str) {
 		String format = "yyyy-MM-dd";
@@ -319,8 +316,8 @@ public class FuncDate {
 	/**
 	 * yyyy年MM月dd日
 	 * 
-	 * @param date
-	 * @return
+	 * @param date 日期
+	 * @return 字符串（yyyy年MM月dd日）
 	 */
 	public static String dateToDayStrC(Date date) {
 		if (date == null)
@@ -334,8 +331,8 @@ public class FuncDate {
 	/**
 	 * yyyy-MM-dd HH:mm:ss
 	 * 
-	 * @param date
-	 * @return
+	 * @param date 日期
+	 * @return 字符串（yyyy-MM-dd HH:mm:ss）
 	 */
 	public static String dateToString(Date date) {
 		if (date == null)
@@ -349,8 +346,8 @@ public class FuncDate {
 	/**
 	 * yyyy-MM-dd HH:mm
 	 * 
-	 * @param date
-	 * @return
+	 * @param date 日期
+	 * @return 字符串（yyyy-MM-dd HH:mm）
 	 */
 	public static String dateToStringYMDHM(Date date) {
 		if (date == null)
@@ -391,8 +388,8 @@ public class FuncDate {
 	/**
 	 * HH:mm:ss
 	 * 
-	 * @param date
-	 * @return
+	 * @param date 日期
+	 * @return 字符串
 	 */
 	public static String dateToTimeStr(Date date) {
 		if (date == null)
@@ -434,9 +431,9 @@ public class FuncDate {
 	/**
 	 * 天数进行加减，count为负数时为减
 	 * 
-	 * @param date
-	 * @param count
-	 * @return
+	 * @param date 日期
+	 * @param count 天数
+	 * @return 结果
 	 */
 	public static String AddDay(String date, int count) {
 		try {
@@ -460,14 +457,14 @@ public class FuncDate {
 	/**
 	 * 小时进行加减，count为负数时为减
 	 * 
-	 * @param date
-	 * @param count
-	 * @return
+	 * @param date 日期
+	 * @param count 小时数
+	 * @return 结果
 	 */
-	public static String addHour(Date d, int count) {
+	public static String addHour(Date date, int count) {
 		try {
 			Calendar c = Calendar.getInstance();
-			c.setTime(d);
+			c.setTime(date);
 			c.add(c.HOUR_OF_DAY, count);
 			return dateToString(c.getTime());
 		} catch (Exception e) {
@@ -487,30 +484,30 @@ public class FuncDate {
 	/**
 	 * 分钟进行加减，count为负数时为减
 	 * 
-	 * @param date
-	 * @param count
-	 * @return
+	 * @param date 日期
+	 * @param count 分钟
+	 * @return 结果
 	 */
-	public static Date AddMinute(Date d, int count) {
+	public static Date AddMinute(Date date, int count) {
 		try {
 			Calendar c = Calendar.getInstance();
-			c.setTime(d);
+			c.setTime(date);
 			c.add(c.MINUTE, count);
-			d = c.getTime();
-			return d;
+			date = c.getTime();
+			return date;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return d;
+		return date;
 	}
 
 	/**
 	 * 月进行加减，count为负数时为减
 	 * 
-	 * @param date
-	 * @param count
-	 * @return
+	 * @param date 日期
+	 * @param count 月数
+	 * @return 结果
 	 */
 	public static String AddMonth(String date, int count) {
 		try {
@@ -542,9 +539,9 @@ public class FuncDate {
 	/**
 	 * 返回时间差 ， 单位为毫秒
 	 * 
-	 * @param date1
-	 * @param date2
-	 * @return
+	 * @param date1 时间1
+	 * @param date2 时间2
+	 * @return 毫秒
 	 */
 	public static long difference(Date date1, Date date2) {
 		long l1 = 0;
@@ -564,9 +561,9 @@ public class FuncDate {
 	/**
 	 * 返回时间差 ， 单位为毫秒
 	 * 
-	 * @param date1
-	 * @param date2
-	 * @return
+	 * @param datestr1 时间1
+	 * @param datestr2 时间2
+	 * @return 毫秒
 	 */
 	public static long difference(String datestr1, String datestr2) {
 		Date date1 = FuncDate.formatToDate(datestr1);
@@ -603,9 +600,9 @@ public class FuncDate {
 
 	/**
 	 * 根据时间增减秒
-	 * @param time
-	 * @param count
-	 * @return
+	 * @param time 日期
+	 * @param count 秒
+	 * @return 结果
 	 */
 	public static Date addSecond(Date time, int count) {
 		Calendar c = Calendar.getInstance();
@@ -627,12 +624,14 @@ public class FuncDate {
 /**
  * 日期操作工具类
  * 
- * @author jmdhappy
- * 
  */
 class DateUtil {
 
-	// 日期转化为大小写
+	/**
+	 * 日期转化为大小写
+	 * @param date 日期
+	 * @return 结果
+	 */
 	public static String dataToUpper(Date date) {
 		Calendar ca = Calendar.getInstance();
 		ca.setTime(date);
@@ -643,7 +642,11 @@ class DateUtil {
 				+ dayToUppder(day) + "日";
 	}
 
-	// 将数字转化为大写
+	/**
+	 * 将数字转化为大写
+	 * @param num 数字
+	 * @return 结果
+	 */
 	public static String numToUpper(int num) {
 		// String u[] = {"零","壹","贰","叁","肆","伍","陆","柒","捌","玖"};
 		String u[] = { "O", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
@@ -655,7 +658,11 @@ class DateUtil {
 		return rstr;
 	}
 
-	// 月转化为大写
+	/**
+	 * 月转化为大写
+	 * @param month 月
+	 * @return 结果
+	 */
 	public static String monthToUppder(int month) {
 		if (month < 10) {
 			return numToUpper(month);
@@ -666,7 +673,11 @@ class DateUtil {
 		}
 	}
 
-	// 日转化为大写
+	/**
+	 * 日转化为大写
+	 * @param day 日
+	 * @return 结果
+	 */
 	public static String dayToUppder(int day) {
 		if (day < 20) {
 			return monthToUppder(day);

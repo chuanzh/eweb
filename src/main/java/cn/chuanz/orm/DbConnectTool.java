@@ -11,7 +11,7 @@ public interface DbConnectTool {
 	
 	/**
 	 * 是否将执行的SQL打印到日志
-	 * @return 
+	 * @return 是否打印
 	 */
 	public boolean printSql();
 	
@@ -21,8 +21,8 @@ public interface DbConnectTool {
 	
 	/**
 	 * 返回某个表的所有字段及字段类型，字段与字段类型之间用逗号分隔
-	 * @param table
-	 * @return
+	 * @param table 字段类型
+	 * @return Map集合
 	 */
 	public List<HashMap<String, String>> allFields(String table);
 	

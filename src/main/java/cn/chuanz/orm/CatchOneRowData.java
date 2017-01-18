@@ -14,8 +14,8 @@ public class CatchOneRowData {
 	
 
 	/**
-	 * @param columnName
-	 * @param value
+	 * @param columnName 列名
+	 * @param value 值
 	 */
 	public void setValue(String columnName, Object value) {
 		newData.put(columnName, value);
@@ -25,7 +25,7 @@ public class CatchOneRowData {
 	public Object getValue(String column){
 		return cacheData.get(column);
 	}
-	/** @param column */
+	
 	public String getValueString(String column) {
 		try {
 			if(cacheData.get(column) == null){
@@ -37,7 +37,6 @@ public class CatchOneRowData {
 		}
 	}
 
-	/** @param columnName */
 	public Date getValueDate(String columnName) {
 		try {
 			return  (Date) this.getValue(columnName);
@@ -47,7 +46,6 @@ public class CatchOneRowData {
 		}
 	}
 
-	/** @param columnName */
 	public Integer getValueInt(String columnName) {
 		try {
 			if(cacheData.get(columnName) == null){
@@ -61,7 +59,6 @@ public class CatchOneRowData {
 		}
 	}
 
-	/** @param columnName */
 	public Long getValueLong(String columnName) {
 		try {
 			if(cacheData.get(columnName) == null){
@@ -75,7 +72,6 @@ public class CatchOneRowData {
 		}
 	}
 	
-	/** @param columnName */
 	public Character getValueChar(String columnName) {
 		try {
 			if(cacheData.get(columnName) == null){
@@ -93,14 +89,13 @@ public class CatchOneRowData {
 		return this.newData;
 	}
 
-	/** @param data */
 	public void putData(HashMap<String, Object> data) {
 		this.cacheData = data;
 	}
 
 	/**
-	 * @param columnName
-	 * @param value
+	 * @param columnName 列名
+	 * @param value 值
 	 */
 	public void setCacheValue(String columnName, String value) {
 		cacheData.put(columnName, value);

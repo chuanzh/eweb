@@ -69,12 +69,7 @@ public class CreateFile {
 		}
 		
 	}
-	/**
-	 * if table is null
-	 * 
-	 * @param table
-	 * @throws IOException 
-	 */
+
 	public void createMapTable(TableInfo table) throws IOException {
 		String packageName = table.getPackagePath()+".maptable";
 		 

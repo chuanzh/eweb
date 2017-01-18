@@ -10,16 +10,20 @@ public class DbFactory {
 	private static Logger logger = Logger.getLogger ( DbFactory.class) ;
 	/**
 	 * 注意调用freeResource释放资源
-	 *
+	 * @param connect 数据库连接
+	 * @return DbBasicService
 	 */
 	public static DbBasicService instanceService (DbConnectTool connect ){
 		DbBasicService dbBasicService = new DbBasicService();
 		dbBasicService.initConnect(connect);
 		return dbBasicService;
 	}
+	
 	/**
 	 * 注意调用freeResource释放资源
-	 *
+	 * @param connect 数据库连接
+	 * @param threadId 线程ID
+	 * @return DbBasicService
 	 */
 	public static DbBasicService instanceService (DbConnectTool connect ,String threadId){
 		DbBasicService dbBasicService = new DbBasicService();
@@ -27,18 +31,13 @@ public class DbFactory {
 		dbBasicService.initConnect(connect);
 		return dbBasicService;
 	}
-	/** @param clazz 
-	 * @throws Exception */
+	
 	public static <T> T  instance(DbBasicService dbService ,Class<? extends NeedDbBasicService> clazz) throws Exception {
 		NeedDbBasicService needConnect = clazz.newInstance();
 		needConnect.initNeedDbBasicService(dbService);
 		return (T)needConnect;
 	}
 
-	/**
-	 * @param clazz
-	 * @param key
-	 */
 	public static <T> T find(DbBasicService dbService , Class<? extends OneRowDataInit> clazz, String key) throws Exception{
 		return findById(dbService,clazz,key);
 	}

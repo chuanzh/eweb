@@ -10,12 +10,7 @@ public class FieldInfo {
 	private String fieldComment = null;//ht
 	private boolean fieldAutoIncreace = false;
 	private boolean isKey = false;
-	/**
-	 * 传入字段信息，用逗号分隔
-	 * fieldName, fieldType,
-	 * @param value
-	 * @return
-	 */
+
 	public static FieldInfo instance(HashMap<String, String> value){
 		FieldInfo info = new FieldInfo();
 		info.fieldName = value.get("fieldName").trim();

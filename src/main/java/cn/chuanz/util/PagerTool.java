@@ -9,7 +9,8 @@ public class PagerTool {
 	/**
 	 * 
 	 * @param nowPage 从1开始 
-	 * @return
+	 * @param pageSize 页数
+	 * @return pagerTool
 	 */
 	public static PagerTool init(int nowPage,int pageSize){
 		return new PagerTool(nowPage,pageSize);
@@ -20,7 +21,7 @@ public class PagerTool {
 	/**
 	 * 
 	 * @param nowPage 从1开始 
-	 * @return
+	 * @return pagerTool
 	 */
 	public static PagerTool init(int nowPage){
 		return new PagerTool(nowPage);

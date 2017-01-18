@@ -69,7 +69,6 @@ public class DbBasicService implements NeedConnect {
 		this.dbConnect = connect;
 	}
 
-	/** @param table */
 	public void setMapTable(MapTable table) {
 		this.table = table;
 	}
@@ -95,7 +94,7 @@ public class DbBasicService implements NeedConnect {
 		this.commit();
 		this.freeResource();
 	}
-	/** @param value */
+
 	public void setNewData(HashMap<String, Object> value) {
 		newData = value;
 	}
@@ -193,7 +192,12 @@ public class DbBasicService implements NeedConnect {
 		}
 	}
 
-	/** @param 调用完后需手动释放资源  */
+	/**
+	 * 调用完后需手动释放资源
+	 * @param sql sql语句
+	 * @return 是否执行成功
+	 * @throws Exception 异常
+	 */
 	public ResultSet queryExecResultSet(String sql) throws Exception {
 		this.writeFlag = false;
 		loggerSql(sql);
@@ -258,15 +262,14 @@ public class DbBasicService implements NeedConnect {
 		return list;
 	}
 	
-	/** @param 调用完后需手动释放资源  
-	 * 
+	/**
 	 * 使用PreparedStatement动态设置变量
-	 * @param sql
-	 * @param params
-	 * @return
-	 * @throws Exception
+	 * @param sql sql语句
+	 * @param params 参数
+	 * @return 是否执行成功
+	 * @throws Exception 异常
 	 * 
-	 * */
+	 **/
 	public ResultSet queryExecResultSet(String sql, Object[] params) throws Exception {
 		this.writeFlag = false;
 		loggerSql(sql,params);
@@ -315,11 +318,12 @@ public class DbBasicService implements NeedConnect {
 	
 	/**
 	 * 使用PreparedStatement动态设置变量
-	 * @param sql
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
+	 * @param sql sql语句
+	 * @param params 参数
+	 * @return 是否执行成功
+	 * @throws Exception 异常
+	 * 
+	 **/
 	public List<HashMap<String, String>> queryExecSql(String sql,Object[] params) throws Exception {
 		this.writeFlag = false;
 		loggerSql(sql,params);
@@ -398,7 +402,6 @@ public class DbBasicService implements NeedConnect {
 		tmpConn = null;
 	}
 
-	/** @param columnName */
 	public StringBuilder readTextColumn(String columnName,ConditionTool condtionTool) throws Exception {
 		this.writeFlag = false;
 		StringBuilder sql = new StringBuilder();
@@ -570,7 +573,6 @@ public class DbBasicService implements NeedConnect {
 		return execSql(sql);
 	}
 
-	/** @param sql */
 	public int execSql(String sql) throws Exception {
 		loggerSql(sql);
 		if(sql.trim().substring(0,6).toLowerCase().startsWith("select")){
@@ -597,10 +599,10 @@ public class DbBasicService implements NeedConnect {
 	
 	/**
 	 * 使用PreparedStatement动态设置变量值
-	 * @param sql
-	 * @param params
-	 * @return
-	 * @throws Exception
+	 * @param sql sql语句
+	 * @param params 参数
+	 * @return 是否执行成功
+	 * @throws Exception 异常
 	 */
 	public int execSql(String sql,Object[] params) throws Exception {
 		loggerSql(sql,params);
