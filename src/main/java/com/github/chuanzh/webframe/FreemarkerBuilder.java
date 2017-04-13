@@ -22,7 +22,7 @@ public class FreemarkerBuilder implements HtmlBuilder{
 	private Map<String,Object> map = new HashMap<String,Object>();
 	private String node = null;
 	public static void init(String viewFolder , boolean ifCache,String[] macros){
-		String viewpath = "../../../"+viewFolder.replace(".", "/")+"/";
+		String viewpath = "../../../../"+viewFolder.replace(".", "/")+"/";
 		cfg.setClassForTemplateLoading(FreemarkerBuilder.class,viewpath);
 		cfg.setDefaultEncoding(HttpFilter.ENCODE);
 		cfg.setObjectWrapper(new DefaultObjectWrapper());

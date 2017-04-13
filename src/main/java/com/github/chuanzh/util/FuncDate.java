@@ -8,8 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.collections.iterators.ArrayListIterator;
-
 public class FuncDate {
 
 	/**
@@ -618,6 +616,17 @@ public class FuncDate {
 	public static int getNowMonth() {
 		Calendar c = Calendar.getInstance();
 		return c.get(Calendar.MONTH);
+	}
+	
+	/**
+	 * 使用参数Format格式化Date成字符串
+	 * 
+	 * @param date
+	 * @param pattern
+	 * @return
+	 */
+	public static String format(String date, String pattern) {
+		return date == null ? "" : new SimpleDateFormat(pattern).format(FuncDate.formatToDate(date));
 	}
 }
 
