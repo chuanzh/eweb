@@ -8,10 +8,18 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -21,6 +29,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -37,11 +48,9 @@ public class FuncHttp {
 
 	/**
 	 * 
-	 * @param url
-	 *            : 要访问网页的地址，可以带参数。例如：http://www.szairport.com/catalog_342.aspx?
-	 *            SearchKey=enter&gs_szm=&AreaCode=&AirNo=
-	 * @return
-	 * @throws Exception
+	 * @param url 地址
+	 * @return 返回数据
+	 * @throws Exception 异常
 	 */
 	public static String httpGet(String url) throws Exception {
 		return httpGet(url, null);
@@ -50,6 +59,68 @@ public class FuncHttp {
 	public static String httpGet(String url, String reencode) throws Exception {
 		return httpGet(url, reencode, null);
 	}
+	
+	/**
+	 * 
+	 * @param url 地址
+	 * @return 返回数据
+	 * @throws Exception 异常
+	 */
+	public static String httpsGet(String url) throws Exception {
+		return httpsGet(url, null);
+	}
+
+	public static String httpsGet(String url, String reencode) throws Exception {
+		return httpsGet(url, reencode, null);
+	}
+	
+	public static String httpsGet(String url, String reencode, String[] headers)
+			throws Exception {
+		HttpClient client = new DefaultHttpClient();// 生成一个默认实例。
+		HttpGet httpget = new HttpGet(url);
+		HttpResponse response = null;
+		HttpEntity entity = null;
+		String responseString = null;
+		try {
+			HttpParams params = client.getParams();
+			HttpConnectionParams.setConnectionTimeout(params, 30 * 1000);
+			HttpConnectionParams.setSoTimeout(params, 60 * 1000);
+			httpget.setHeader("User-Agent",
+					"Mozilla/5.0 (Windows NT 6.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2");
+			if (headers != null) {
+				for (String header : headers) {
+					String[] kv = header.split(":", 2);// 若url中含有http:就会出现多次，所以限制为2.
+					if (kv.length > 1) {
+						httpget.setHeader(kv[0].trim(), kv[1].trim());// 添加一个referer链接。网站是先经过referer自动跳转到url的。
+					}
+				}
+			}
+
+			client = WebClientDevWrapper.wrapClient(client);
+			
+			response = client.execute(httpget);
+			entity = response.getEntity();
+			if (entity != null) {
+				if (reencode != null) {
+					responseString = EntityUtils.toString(response.getEntity(),
+							reencode);
+				} else {
+					responseString = EntityUtils.toString(response.getEntity());
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (entity != null) {
+				EntityUtils.consume(entity);
+			}
+			httpget.abort();// 终止访问。
+			client.getConnectionManager().shutdown();// 关闭client的连接管理。
+			client = null;
+		}
+		return responseString;
+	}
+	
 
 	public static String httpGet(String url, String reencode, String[] headers)
 			throws Exception {
@@ -131,6 +202,94 @@ public class FuncHttp {
 		return httpPost(url, data, headers, null);
 	}
 	
+	public static String httpsPost(String url, HashMap<String, String> data,
+			String[] headers)throws Exception  {
+		return httpsPost(url, data, headers, null);
+	}
+	
+	public static String httpsPost(String url, String data,
+			String[] headers)throws Exception  {
+		return httpsPost(url, data, headers, null);
+	}
+	
+	public static String httpsPost(String url, String data,
+			String[] headers, String reencode) throws Exception {
+		DefaultHttpClient httpclient = new DefaultHttpClient(); // 实例化一个HttpClient
+		HttpResponse response = null;
+		HttpEntity entity = null;
+		String responseString = null;
+		HttpPost httpost = null;
+		try {
+			HttpParams params = httpclient.getParams();
+			HttpConnectionParams.setConnectionTimeout(params, 30 * 1000);
+			HttpConnectionParams.setSoTimeout(params, 60 * 1000);
+
+			httpost = new HttpPost(url); // 引号中的参数是：servlet的地址 ，既域名+路径
+											// http://www.szairport.com/catalog_342.aspx
+			if (headers != null && headers.length > 0) {// 若不为空则添加。new
+														// String[]{}不为空
+				for (String header : headers) {
+					String[] kv = header.split(":", 2);// 若url中含有http:就会出现多次，所以限制为2.
+					if (kv.length > 1) {
+						httpost.addHeader(kv[0].trim(), kv[1].trim());// 添加一个referer链接。网站是先经过referer自动跳转到url的。
+					}
+				}
+			}
+			
+			//创建TrustManager
+			X509TrustManager xtm = new X509TrustManager() {
+				public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+				public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+			};
+			X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
+				public boolean verify(String arg0, SSLSession arg1) {
+					return true;
+				}
+				public void verify(String arg0, SSLSocket arg1) throws IOException {}
+				public void verify(String arg0, String[] arg1, String[] arg2) throws SSLException {}
+				public void verify(String arg0, X509Certificate arg1) throws SSLException {}
+			};
+			
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			ctx.init(null, new TrustManager[] { xtm }, null);
+			SSLSocketFactory socketFactory = new SSLSocketFactory(ctx);
+			socketFactory.setHostnameVerifier(hostnameVerifier);
+			//通过SchemeRegistry将SSLSocketFactory注册到我们的HttpClient上
+			httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", socketFactory, 443));
+			
+			httpost.setEntity(new StringEntity(data,reencode));
+			response = httpclient.execute(httpost); // 执行
+			entity = response.getEntity(); // 返回服务器响应
+			if (entity != null) {
+				if (reencode != null) {
+					responseString = EntityUtils.toString(response.getEntity(),
+							reencode);
+				} else {
+					responseString = EntityUtils.toString(response.getEntity());
+				}
+			}
+		}  catch (Exception e1) {
+			throw e1;
+		} finally {
+			if (entity != null) {
+				try {
+					EntityUtils.consume(entity);
+					entity = null;
+				} catch (IOException e) {
+					logger.error(FuncStatic.errorTrace(e));
+				}
+			}
+			httpost.abort();
+			httpost = null;
+			httpclient.getConnectionManager().shutdown();
+			httpclient = null;
+		}
+		return responseString;
+	}
+	
 	public static String httpPost(String url, String data,
 			String[] headers, String reencode) throws Exception {
 		DefaultHttpClient httpclient = new DefaultHttpClient(); // 实例化一个HttpClient
@@ -155,6 +314,90 @@ public class FuncHttp {
 				}
 			}
 			httpost.setEntity(new StringEntity(data,reencode));
+			response = httpclient.execute(httpost); // 执行
+			entity = response.getEntity(); // 返回服务器响应
+			if (entity != null) {
+				if (reencode != null) {
+					responseString = EntityUtils.toString(response.getEntity(),
+							reencode);
+				} else {
+					responseString = EntityUtils.toString(response.getEntity());
+				}
+			}
+		}  catch (Exception e1) {
+			throw e1;
+		} finally {
+			if (entity != null) {
+				try {
+					EntityUtils.consume(entity);
+					entity = null;
+				} catch (IOException e) {
+					logger.error(FuncStatic.errorTrace(e));
+				}
+			}
+			httpost.abort();
+			httpost = null;
+			httpclient.getConnectionManager().shutdown();
+			httpclient = null;
+		}
+		return responseString;
+	}
+	
+	public static String httpsPost(String url, HashMap<String, String> data,
+			String[] headers, String reencode) throws Exception {
+		DefaultHttpClient httpclient = new DefaultHttpClient(); // 实例化一个HttpClient
+		HttpResponse response = null;
+		HttpEntity entity = null;
+		String responseString = null;
+		HttpPost httpost = null;
+		try {
+			HttpParams params = httpclient.getParams();
+			HttpConnectionParams.setConnectionTimeout(params, 30 * 1000);
+			HttpConnectionParams.setSoTimeout(params, 60 * 1000);
+
+			httpost = new HttpPost(url); // 引号中的参数是：servlet的地址 ，既域名+路径
+											// http://www.szairport.com/catalog_342.aspx
+			if (headers != null && headers.length > 0) {// 若不为空则添加。new
+														// String[]{}不为空
+				for (String header : headers) {
+					String[] kv = header.split(":", 2);// 若url中含有http:就会出现多次，所以限制为2.
+					if (kv.length > 1) {
+						httpost.addHeader(kv[0].trim(), kv[1].trim());// 添加一个referer链接。网站是先经过referer自动跳转到url的。
+					}
+				}
+			}
+			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+			if (data != null) {
+				for (String key : data.keySet()) {
+					formparams.add(new BasicNameValuePair(key, data.get(key)));
+				}
+			}
+			
+			//创建TrustManager
+			X509TrustManager xtm = new X509TrustManager() {
+				public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+				public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+			};
+			X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
+				public boolean verify(String arg0, SSLSession arg1) {
+					return true;
+				}
+				public void verify(String arg0, SSLSocket arg1) throws IOException {}
+				public void verify(String arg0, String[] arg1, String[] arg2) throws SSLException {}
+				public void verify(String arg0, X509Certificate arg1) throws SSLException {}
+			};
+			
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			ctx.init(null, new TrustManager[] { xtm }, null);
+			SSLSocketFactory socketFactory = new SSLSocketFactory(ctx);
+			socketFactory.setHostnameVerifier(hostnameVerifier);
+			//通过SchemeRegistry将SSLSocketFactory注册到我们的HttpClient上
+			httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", socketFactory, 443));
+			
+			httpost.setEntity(new UrlEncodedFormEntity(formparams, HTTP.UTF_8));
 			response = httpclient.execute(httpost); // 执行
 			entity = response.getEntity(); // 返回服务器响应
 			if (entity != null) {
@@ -244,10 +487,9 @@ public class FuncHttp {
 	}
 
 	/**
-	 * html实体转换 将html实体编码格式转换为中文 例：&#22823;&#36830; -> 大连
-	 * 
-	 * @param dataStr
-	 * @return
+	 * html实体转换 将html实体编码格式转换为中文
+	 * @param dataStr 数据
+	 * @return 返回数据
 	 */
 	public static String decodeHtmlEntity(String dataStr) {
 		if (dataStr.indexOf("&#") != -1) {
@@ -301,9 +543,10 @@ public class FuncHttp {
 	/**
 	 * 根据url下载文件
 	 * 
-	 * @param ourputFile
-	 * @param url
-	 * @throws Exception
+	 * @param ourputFile 输出文件
+	 * @param url 地址
+	 * @throws Exception 异常
+	 * @return 返回数据
 	 */
 	public static boolean downloadByUrl(String ourputFile, String url) throws Exception {
 		try {
@@ -347,7 +590,7 @@ public class FuncHttp {
 	
 	public static void main(String[] args) throws Exception {
 		String url = "http://43.241.235.200:8888/pushcenter/push/sendsms";
-		HashMap<String, String> params = new HashMap<>();
+		HashMap<String, String> params = new HashMap<String,String>();
 		params.put("phone", "18627948507");
 		JSONObject sms = new JSONObject();
 		sms.put("type", 0);

@@ -621,9 +621,9 @@ public class FuncDate {
 	/**
 	 * 使用参数Format格式化Date成字符串
 	 * 
-	 * @param date
-	 * @param pattern
-	 * @return
+	 * @param date 日期
+	 * @param pattern 格式
+	 * @return 返回数据
 	 */
 	public static String format(String date, String pattern) {
 		return date == null ? "" : new SimpleDateFormat(pattern).format(FuncDate.formatToDate(date));
